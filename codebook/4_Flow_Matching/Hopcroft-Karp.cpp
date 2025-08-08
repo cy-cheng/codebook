@@ -1,5 +1,5 @@
 #include "include/common.h"
-struct HopcroftKarp { // 0-based, return btoa to get matching
+struct HopcroftKarp { // 0-based, return btoa to get matching, O(E sqrt(V)) bipartite graph matching
   bool dfs(int a, int L, vector<vector<int>> &g,
     vector<int> &btoa, vector<int> &A,
     vector<int> &B) {
@@ -46,5 +46,7 @@ struct HopcroftKarp { // 0-based, return btoa to get matching
       for (int a = 0; a < (int)g.size(); a++)
         res += dfs(a, 0, g, btoa, A, B);
     }
+    return res;
+    // or btoa
   }
 };

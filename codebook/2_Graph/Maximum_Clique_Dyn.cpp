@@ -1,5 +1,5 @@
 #include "include/common.h"
-struct MaxClique { // fast when N <= 100
+struct MaxClique { // 最大完全子圖, fast when N <= 100
   bitset<N> G[N], cs[N];
   int ans, sol[N], q, cur[N], d[N], n;
   void init(int _n) {

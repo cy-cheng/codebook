@@ -3,13 +3,15 @@ using namespace std;
 
 #define F first
 #define S second
-#define all(x) x.begin(), x.end()
 #define pii pair<int, int>
 #define pll pair<ll, ll>
 #define pdd pair<double, double>
 #define ll long long
 #define ld long double
 #define i128 __int128
+
+#define all(x) x.begin(), x.end()
+#define pb emplace_back
 
 #ifdef LOCAL
 #define px(args...) LKJ("\033[1;32m(" #args "):\033[0m", args)

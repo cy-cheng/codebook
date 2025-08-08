@@ -1,15 +1,21 @@
 #include "Convex_hull.cpp"
-vector<pll> Minkowski(vector<pll> A, vector<pll> B) { // |A|,|B|>=3
-  A = hull(A), B = hull(B);
-  vector<pll> C(1, A[0] + B[0]), s1, s2; 
-  for (int i = 0; i < A.size(); ++i) 
-    s1.emplace_back(A[(i + 1) % A.size()] - A[i]);
-  for (int i = 0; i < B.size(); i++) 
-    s2.emplace_back(B[(i + 1) % B.size()] - B[i]);
-  for (int i = 0, j = 0; i < A.size() || j < B.size();)
-    if (j >= B.size() || (i < A.size() && cross(s1[i], s2[j]) >= 0))
-      C.emplace_back(B[j % B.size()] + A[i++]);
-    else
-      C.emplace_back(A[i % A.size()] + B[j++]);
-  return hull(C); // dis(A, B) = dis(Minkowski(A, -B), 0)
+void shift(vector<pdd>& h) {
+    int p = 0; // must be convex hull
+    for (int i = 1; i < h.size(); i++) {
+        if (h[i].S < h[p].S) p = i;
+        if (h[i].S == h[p].S && h[i].F < h[p].F) p = i;
+    }
+    rotate(h.begin(), h.begin() + p, h.end());
+}
+void Minkowski(vector<pdd>& a, vector<pdd>& b, vector<pdd>& c) {
+    shift(a), shift(b); c = {}; // |A|,|B|>=3
+    int A = a.size(), B = b.size(), i = 0, j = 0;
+    a.pb(a[0]), a.pb(a[1]), b.pb(b[0]), b.pb(b[1]);
+    while (i < A || j < B) {
+        c.pb(a[i] + b[j]);
+        ll c = cross(a[i + 1] - a[i], b[j + 1] - b[j]);
+        if (c >= 0 && i < A) i++;
+        if (c <= 0 && j < B) j++;
+    }
+    for (int i = 0; i < 2; i++) a.pop_back(), b.pop_back();
 }

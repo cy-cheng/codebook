@@ -40,11 +40,14 @@ struct SAT { // 0-base
     for (int i = 0; i < n + n; ++i)
       if (!dfn[i]) dfs(i);
     for (int i = 0; i < n + n; ++i) SCC[bln[i]].emplace_back(i);
+    bool flag = true;
     for (int i = 0; i < n; ++i) {
-      if (bln[i] == bln[i + n]) return false;
+      if (bln[i] == bln[i + n]) flag = false;
       istrue[i] = bln[i] < bln[i + n];
       istrue[i + n] = !istrue[i];
     }
-    return true;
+    return flag;
+    // return whether there is a set of solutions
+    // istrue[] are one set of solutions if any
   }
 };

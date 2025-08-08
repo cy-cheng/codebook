@@ -1,5 +1,5 @@
 #include "GeometryDefaultFloat.h"
-void hull(vector<pll> &dots) { // n=1 => ans = {}
+vector<pll> hull(vector<pll> dots) { // n=1 => ans = {}
   sort(dots.begin(), dots.end());
   vector<pll> ans(1, dots[0]);
   for (int ct = 0; ct < 2; ++ct, reverse(all(dots)))
@@ -8,6 +8,7 @@ void hull(vector<pll> &dots) { // n=1 => ans = {}
          ans.emplace_back(dots[i++]))
       while ((int)ans.size() > t &&
         ori(ans.end()[-2], ans.back(), dots[i]) <= 0)
-        ans.pop_back();
-  ans.pop_back(), ans.swap(dots);
+        ans.pop_back(); // "<" for keeping collinear
+  ans.pop_back();
+  return ans;
 }

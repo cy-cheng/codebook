@@ -1,21 +1,13 @@
 #include "GeometryDefaultFloat.h"
-#include "Heart.cpp"
-pdd Minimum_Enclosing_Circle(vector<pdd> dots, double &r) {
-  pdd cent;
-  random_shuffle(all(dots));
-  cent = dots[0], r = 0;
-  for (int i = 1; i < (int)dots.size(); ++i) 
-    if (abs(dots[i] - cent) > r) {
-      cent = dots[i], r = 0;
-      for (int j = 0; j < i; ++j)
-        if (abs(dots[j] - cent) > r) {
-          cent = (dots[i] + dots[j]) / 2;
-          r = abs(dots[i] - cent);
-          for(int k = 0; k < j; ++k)
-            if(abs(dots[k] - cent) > r)
-              cent = excenter(dots[i], dots[j], dots[k]),
-              r = abs(cent - dots[i]);
-        }
-    }
-  return cent;
+pair<pdd, double> min_enc_circ(vector<pdd>& pt) {
+    double D = 1e9, d = 1e9, r = 0.98, mx;
+    pdd ans = pt[0];
+    while (d > 1e-8) {
+        pdd far = pt[0];
+        mx = abs2(ans - far);
+        for (auto& p: pt) if (abs2(ans - p) > mx) 
+            far = p, mx = abs2(ans - p);
+        ans = ans + (far - ans) * (d / D), d *= r;
+    } 
+    return {ans, sqrt(mx) / 2}; // cent, rad
 }

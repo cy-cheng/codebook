@@ -1,6 +1,6 @@
 #include "include/common.h"
 #include "7_Polynomial/Fast_Walsh_Transform.cpp"
-struct CliqueCover { // 0-base, O(n2^n)
+struct CliqueCover { // 0-base, O(n2^n), 用最少數量的團覆蓋無向圖
   int co[1 << N], n, E[N];
   int dp[1 << N];
   void init(int _n) {

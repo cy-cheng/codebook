@@ -1,12 +1,13 @@
 #include "include/common.h"
-int Z[N];
-void z(string s) {
-  for (int i = 1, mx = 0; i < (int)s.size(); i++) {
-    if (i < Z[mx] + mx)
-      Z[i] = min(Z[mx] - i + mx, Z[i - mx]);
-    while (
-      Z[i] + i < (int)s.size() && s[i + Z[i]] == s[Z[i]])
-      Z[i]++;
-    if (Z[i] + i > Z[mx] + mx) mx = i;
-  }
+vector<int> Z(const string& S) {
+	vector<int> z((int)S.size());
+	int l = -1, r = -1;
+	for(int i=1; i<(int)S.size(); i++) {
+		z[i] = i >= r ? 0 : min(r - i, z[i - l]);
+		while (i + z[i] < (int)S.size() && S[i + z[i]] == S[z[i]])
+			z[i]++;
+		if (i + z[i] > r)
+			l = i, r = i + z[i];
+	}
+	return z;
 }

@@ -1,4 +1,5 @@
 #include "BoundedFlow.cpp"
+// 最小割樹, 樹上兩點最小割 = 樹上兩點最小割
 BoundedFlow Dinic;
 int g[N]; 
 void add_edge(int u, int v, int w); // TODO

@@ -1,5 +1,5 @@
 #include "include/common.h"
-struct Matching { // 0-base
+struct Matching { // 0-base, O(VE^2)
   queue<int> q; int n;
   vector<int> fa, s, vis, pre, match;
   vector<vector<int>> G;

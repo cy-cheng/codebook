@@ -1,8 +1,9 @@
 #include "include/common.h"
+// O(E + V log V)
 #define rep(i, a, b) for (int i = a; i < (b); ++i)
 #define sz(x) (int)(x).size()
 typedef vector<int> vi;
-struct RollbackUF {
+struct RollbackUF { 
   vi e;
   vector<pii> st;
   RollbackUF(int n) : e(n, -1) {}

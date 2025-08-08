@@ -1,8 +1,0 @@
-\begin{itemize}
-    \item Construction: Root $\frac 1 1$, left/right neighbor $\frac 0 1, \frac 1 0$, 
-          each node is sum of last left/right neighbor: $\frac a b, \frac c d \rightarrow \frac{a+c}{b+d}$
-    \item Property: Adjacent (mid-order DFS) $\frac a b, \frac c d \Rightarrow bc-ad = 1$.
-    \item Search known $\frac p q$: keep L-R alternative. Each step can calcaulated in $O(1) \Rightarrow$ total $O(\log C)$.
-    \item Search unknown $\frac p q$: keep L-R alternative. Each step can calcaulated in $O(\log C)$ checks $\Rightarrow$ total $O(\log^2 C)$ checks.
-\end{itemize}
-    

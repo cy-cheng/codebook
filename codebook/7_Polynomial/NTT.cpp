@@ -6,7 +6,6 @@ base omega[4 * N], omega_[4 * N];
 int rev[4 * N];
 
 ll fpow(ll b, ll p);
-
 ll inverse(ll a) { return fpow(a, mod - 2); }
 
 void calcW(int n) {

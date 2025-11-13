@@ -5,7 +5,8 @@ struct vertex_cc {
   } e[M << 1];
   int hd[N], tot = 1;
 
-  void add(int u, int v) { e[++tot] = edge{v, hd[u]}, hd[u] = tot; }
+  void add(int u, int v) { 
+    e[++tot] = edge{v, hd[u]}, hd[u] = tot; }
   void uadd(int u, int v) { add(u, v), add(v, u); }
 
   int ans, top, cnt, ord, root;

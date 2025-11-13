@@ -1,5 +1,5 @@
 #include "include/common.h"
-struct Matching { // 0-base, O(VE^2)
+struct Matching { // 0-base, O(VE^2), but somehow very fast
   queue<int> q; int n;
   vector<int> fa, s, vis, pre, match;
   vector<vector<int>> G;
@@ -21,7 +21,7 @@ struct Matching { // 0-base, O(VE^2)
     }
   }
   bool Bfs(int r) {
-    iota(all(fa), 0); fill(all(s), -1);
+    iota(fa.begin(), fa.end(), 0); fill(s.begin(), s.end(), -1);
     q = queue<int>(); q.push(r); s[r] = 0;
     for (; !q.empty(); q.pop()) {
       for (int x = q.front(); int u : G[x])

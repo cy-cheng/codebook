@@ -1,31 +1,44 @@
 #include "include/common.h"
-int n, m, dfn[N], low[N], is_cut[N], nbcc = 0, t = 0;
-vector<int> g[N], bcc[N], G[2 * N];
-stack<int> st;
-void tarjan(int p, int lp) {
-  dfn[p] = low[p] = ++t;
-  st.push(p);
-  for (auto i : g[p]) {
-    if (!dfn[i]) {
-      tarjan(i, p);
-      low[p] = min(low[p], low[i]);
-      if (dfn[p] <= low[i]) {
-        nbcc++;
-        is_cut[p] = 1;
-        for (int x = 0; x != i; st.pop()) {
-          x = st.top();
-          bcc[nbcc].push_back(x);
+struct vertex_cc {
+  struct edge {
+    int to, nt;
+  } e[M << 1];
+  int hd[N], tot = 1;
+
+  void add(int u, int v) { e[++tot] = edge{v, hd[u]}, hd[u] = tot; }
+  void uadd(int u, int v) { add(u, v), add(v, u); }
+
+  int ans, top, cnt, ord, root;
+  int dfn[N], low[N], sta[N];
+  bool cut[N];
+  vector<int> dcc[N];
+
+  void tarjan(int u) {
+    dfn[u] = low[u] = ++ord, sta[++top] = u;
+    if (u == root && hd[u] == 0) {
+      dcc[++cnt].push_back(u);
+      return;
+    }
+    int f = 0;
+    for (int i = hd[u]; i; i = e[i].nt) {
+      int v = e[i].to;
+      if (!dfn[v]) {
+        tarjan(v);
+        low[u] = min(low[u], low[v]);
+        if (low[v] >= dfn[u]) {
+          if (++f > 1 || u != root) cut[u] = true;
+          cnt++;
+          do dcc[cnt].push_back(sta[top--]);
+          while (sta[top + 1] != v);
+          dcc[cnt].push_back(u);
         }
-        bcc[nbcc].push_back(p);
-      }
-    } else low[p] = min(low[p], dfn[i]);
-  }
-}
-void build() { // [n+1,n+nbcc] cycle, [1,n] vertex
-  for (int i = 1; i <= nbcc; i++) {
-    for (auto j : bcc[i]) {
-      G[i + n].push_back(j);
-      G[j].push_back(i + n);
+      } else low[u] = min(low[u], dfn[v]);
     }
   }
-}
+  int solve(int L, int R) { // vertex index range [L, R)
+    for (int i = L; i < R; ++i) dfn[i] = 0;
+    for (int i = L; i < R; ++i)
+      if (!dfn[i]) { root = i; tarjan(i); }
+    return cnt;
+  } // answer in dcc, BCCs are 1-based
+};

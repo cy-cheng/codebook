@@ -1,9 +1,9 @@
 #include "common.h"
-namespace bridge_cc {
+namespace bridge_cc { // vertex 0-based
   vector<int> tim, low;
   stack<int, vector<int>> st;
   int t, bcc_id;
-  void dfs(int u, int p, const vector<vector<pair<int, int>>> &edge, vector<int> &pa) {
+  void dfs(int u, int p, const vector<vector<pii>> &edge, vector<int> &pa) {
     tim[u] = low[u] = t++;
     st.push(u);
     for (const auto &[v, id] : edge[u]) {
@@ -26,7 +26,7 @@ namespace bridge_cc {
       }
     }
   }
-  vector<int> solve(const vector<vector<pair<int, int>>> &edge) { // (to, id)
+  vector<int> solve(const vector<vector<pii>> &edge) { // (to, id)
     int n = edge.size();
     tim.resize(n);
     low.resize(n);

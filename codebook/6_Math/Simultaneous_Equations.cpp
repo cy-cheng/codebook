@@ -1,5 +1,4 @@
 #include "Fraction.cpp"
-
 struct Matrix {
     int m, n;
     vector<vector<fraction> > A;

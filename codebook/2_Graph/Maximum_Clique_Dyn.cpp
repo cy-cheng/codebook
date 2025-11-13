@@ -1,5 +1,5 @@
 #include "include/common.h"
-struct MaxClique { // 最大完全子圖, fast when N <= 100
+struct MaxClique { // max complete subgraph, fast when N <= 100
   bitset<N> G[N], cs[N];
   int ans, sol[N], q, cur[N], d[N], n;
   void init(int _n) {
@@ -47,5 +47,6 @@ struct MaxClique { // 最大完全子圖, fast when N <= 100
     ans = q = 0, iota(all(r), 0);
     pre_dfs(r, 0, bitset<N>(string(n, '1')));
     return ans;
-  }
+  } // first ans elements in sol form the vertex set
 };
+

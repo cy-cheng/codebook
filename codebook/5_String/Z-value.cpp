@@ -1,6 +1,7 @@
 #include "include/common.h"
 vector<int> Z(const string& S) {
 	vector<int> z((int)S.size());
+    z[0] = (int)S.size(); // or 0
 	int l = -1, r = -1;
 	for(int i=1; i<(int)S.size(); i++) {
 		z[i] = i >= r ? 0 : min(r - i, z[i - l]);

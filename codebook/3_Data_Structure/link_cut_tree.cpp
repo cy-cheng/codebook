@@ -10,8 +10,7 @@ struct Node {
   int u, v, w;
 } a[N];
 inline bool IsRoot(int x) {
-  return (ls(fa(x)) == x || rs(fa(x)) == x) ? false
-                                            : true;
+  return (ls(fa(x)) == x || rs(fa(x)) == x) ? 0 : 1;
 }
 inline void PushUp(int x) {
   Tree[x].Min = w[x], Tree[x].id = x;
@@ -22,8 +21,8 @@ inline void PushUp(int x) {
   if (rs(x) && Tree[rs(x)].Min < Tree[x].Min) {
     Tree[x].Min = Tree[rs(x)].Min;
     Tree[x].id = Tree[rs(x)].id;
-  }
-}
+  } // id: id of Min value
+} // change Min to sum and remove < if summing
 inline void Update(int x) {
   Tree[x].lazy ^= 1;
   swap(ls(x), rs(x));
@@ -73,18 +72,18 @@ inline int FindRoot(int x) {
 inline void Link(int u, int v) {
   MakeRoot(u);
   if (FindRoot(v) != u) fa(u) = v;
-}
+} // create edge u -> v
 inline void Cut(int u, int v) {
   MakeRoot(u);
   if (FindRoot(v) != u || fa(v) != u || ls(v)) return;
   fa(v) = rs(u) = 0;
-}
+} // delete edge u -> v
 inline void Split(int u, int v) {
   MakeRoot(u), Access(v), Splay(v);
-}
+} // v stores the path u -> v
 inline bool Check(int u, int v) {
   return MakeRoot(u), FindRoot(v) == u;
-}
+} // check u, v in the same tree
 inline int LCA(int root, int u, int v) {
   MakeRoot(root), Access(u), Access(v), Splay(u);
   if (!fa(u)) {
@@ -92,7 +91,7 @@ inline int LCA(int root, int u, int v) {
     return fa(v);
   }
   return fa(u);
-}
+} // LCA of u, v in tree with root
 /* ETT
 每次進入節點和走邊都放入一次共 3n - 2
 node(u) 表示進入節點 u 放入 treap 的位置
